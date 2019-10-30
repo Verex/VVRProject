@@ -9,7 +9,7 @@ public class Rotator : MonoBehaviour
 {
     bool freezeRotation = false;
     [SerializeField] Transform rotationTarget;
-    [SerializeField] uint rotationDuration = 5;
+    [SerializeField] float rotationDuration = 5;
 
     public RotationVisualizedEvent OnRotationVisualized;
     public UnityEvent OnVisualizationComplete;
@@ -66,18 +66,5 @@ public class Rotator : MonoBehaviour
     {
         // Start the visualization of rotations.
         StartCoroutine(VisualizeRotations(rotations));
-    }
-
-    public static List<Vector3> GetRandomRotations(uint count)
-    {
-        List<Vector3> rotations = new List<Vector3>();
-
-        // Add random rotations to list. 
-        for (int i = 0; i < count; i++)
-        {
-            rotations.Add(Random.rotationUniform.eulerAngles);
-        }
-
-        return rotations;
     }
 }

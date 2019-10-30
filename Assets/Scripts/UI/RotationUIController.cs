@@ -31,18 +31,22 @@ public class RotationUIController : MonoBehaviour
 
     void LateUpdate()
     {
-        while (hitRecords.Count > 0)
+        // Handle our queue.
+        if (hitRecords != null)
         {
-            HitRecord record = hitRecords.Dequeue();
+            while (hitRecords.Count > 0)
+            {
+                HitRecord record = hitRecords.Dequeue();
 
-            GameObject targetHitTextOjbect = Instantiate(targetHitTextPrefab);
-            targetHitTextOjbect.transform.SetParent(this.transform, false);
+                GameObject targetHitTextOjbect = Instantiate(targetHitTextPrefab);
+                targetHitTextOjbect.transform.SetParent(this.transform, false);
 
-            TargetHitText hitText = targetHitTextOjbect.GetComponent<TargetHitText>();
-            hitText.DisplayTargetHit(record.Target, record.Rotation, record.TotalHits, Globals.Instance.freezeDuration);
+                TargetHitText hitText = targetHitTextOjbect.GetComponent<TargetHitText>();
+                hitText.DisplayTargetHit(record.Target, record.Rotation, record.TotalHits, Globals.Instance.freezeDuration);
 
-            RectTransform rt = targetHitTextOjbect.GetComponent<RectTransform>();
-            rt.anchoredPosition = rt.anchoredPosition + new Vector2(0, hitRecords.Count * -20);
+                RectTransform rt = targetHitTextOjbect.GetComponent<RectTransform>();
+                rt.anchoredPosition = rt.anchoredPosition + new Vector2(0, hitRecords.Count * -20);
+            }
         }
     }
 

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class Globals : MonoSingleton<Globals>
 {
     protected Globals() {}

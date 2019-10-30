@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[System.Serializable] public class RotationsLoadedEvent : UnityEvent<List<Vector3>> {}
+[System.Serializable] public class RotationsLoadedEvent : UnityEvent<List<Vector3>> { }
 
 public class IORotationStreamer : MonoBehaviour
 {
     enum RotationAxis { X, Y, Z }
 
-    [Tooltip("File path relative to OS application data folder."), SerializeField] 
+    [Tooltip("File path relative to OS application data folder."), SerializeField]
     string relativeFilePath;
-    [SerializeField] uint rotationCount;
+    [SerializeField] int rotationCount;
     [SerializeField] RotationAxis sortingAxis;
 
     public RotationsLoadedEvent OnRotationsLoaded;
@@ -58,7 +58,7 @@ public class IORotationStreamer : MonoBehaviour
         }
         else
         {
-            rotations = Rotator.GetRandomRotations(rotationCount);
+            rotations = GetRandomRotations(rotationCount);
 
             try
             {
@@ -96,5 +96,18 @@ public class IORotationStreamer : MonoBehaviour
         });
 
         OnRotationsLoaded.Invoke(rotations);
+    }
+
+    public static List<Vector3> GetRandomRotations(int count)
+    {
+        List<Vector3> rotations = new List<Vector3>();
+
+        // Add random rotations to list. 
+        for (int i = 0; i < count; i++)
+        {
+            rotations.Add(UnityEngine.Random.rotationUniform.eulerAngles);
+        }
+
+        return rotations;
     }
 }
